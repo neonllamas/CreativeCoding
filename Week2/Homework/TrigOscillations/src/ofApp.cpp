@@ -3,6 +3,9 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetRectMode(OF_RECTMODE_CENTER);
+    
+    gui.setup();
+    gui.add(speedSlider.setup("Speed",1,-20,20));
 }
 
 //--------------------------------------------------------------
@@ -19,13 +22,14 @@ void ofApp::draw(){
     ofSetBackgroundColor(r,g,b);
     //ofSetBackgroundColor(40, 40, 40);
     
+    ofPushMatrix();
     ofTranslate(20,20);
     
     for(int x = 0; x < ofGetWidth(); x+= 10){
         for(int y = 0; y < ofGetHeight(); y+= 10){
             
             float r = sqrt(x*x + y*y);
-            float z = 5 * sin( r + ofGetElapsedTimef()*2 );
+            float z = 5 * sin( r + ofGetElapsedTimef()*speedSlider );
             /*ofDrawRectangle(x,y,z,z);*/
             ofDrawCircle(x, y, z);
             float red = ofMap(sin( ofGetElapsedTimef() ),-1,1,50,230);
@@ -35,7 +39,9 @@ void ofApp::draw(){
             ofFill();
             
         }
+        ofPopMatrix();
     }
+    gui.draw();
 }
 
 //--------------------------------------------------------------
