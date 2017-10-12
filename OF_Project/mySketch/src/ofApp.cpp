@@ -26,29 +26,34 @@ void ofApp::draw(){
         ofSetBackgroundColor(100, 0, 200);
         myLMFAO.stop();
         myShrek.stop();
+        
+        cam.begin();
+        cam.end();
+        
     }
     
     else if(currentState==SCENE_TWO){
-        ofSetBackgroundColor(0, 70, 100);
+        //polygon changes to the sound of the music
+        ofSetBackgroundColor(0, 0, 0, .8);
         myShrek.stop();
-        for(int x = 0; x < ofGetWidth(); x+= 5){
-            for(int y = 0; y < ofGetHeight(); y+= 10){
-                
-                float r = sqrt(x*x + y*y);
-                float z = 5 * sin( r + ofGetElapsedTimef()*scaleFreq *20);
-                /*ofDrawRectangle(x,y,z,z);*/
-                ofDrawCircle(x, y, z);
-                float red = ofMap(sin( ofGetElapsedTimef()*5 ),-1,1,50,230);
-                float green = ofMap(sin( ofGetElapsedTimef() * .25 ),-1,1,50,230);
-                float blue = ofMap(sin( ofGetElapsedTimef() * .5 ),-1,1,50,230);
-                ofSetColor(red, green, blue);
-                ofFill();
-            }
-        }
-    }
+        
+        //for(int x = 0; x < ofGetWidth(); x+= 5){
+           // for(int y = 0; y < ofGetHeight(); y+= 10){
+                //float r = sqrt(x*x + y*y);
+               // float z = 5 * sin( r + ofGetElapsedTimef()*scaleFreq *20);
+               // /*ofDrawRectangle(x,y,z,z);*/
+              //  ofDrawCircle(x, y, z);
+               // float red = ofMap(sin( ofGetElapsedTimef()*5 ),-1,1,50,230);
+              //  float green = ofMap(sin( ofGetElapsedTimef() * .25 ),-1,1,50,230);
+               // float blue = ofMap(sin( ofGetElapsedTimef() * .5 ),-1,1,50,230);
+              //  ofSetColor(red, green, blue);
+              //  ofFill();
+           // }
+        //}
+   }
     
     else if(currentState==SCENE_THREE){
-        //ofSetBackgroundColor(0, 70, 100);
+        ofSetBackgroundColor(0, 0, 0, .8);
         shrek.draw(0,0);
         myLMFAO.stop();
     }
@@ -59,13 +64,22 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
-    if(key=='f') ofToggleFullscreen();
-    if(key=='1') currentState=SCENE_ONE;
-    if (key=='2') currentState=SCENE_TWO;
-    if (key=='2') myLMFAO.play();
-    if (key=='3') currentState=SCENE_THREE;
-    if (key=='3') myShrek.play();
-    
+    switch(key){
+        case 'f':
+            ofToggleFullscreen();
+            break;
+        case '1':
+            currentState=SCENE_ONE;
+            break;
+        case '2':
+            currentState = SCENE_TWO;
+            myLMFAO.play();
+            break;
+        case '3':
+            currentState=SCENE_THREE;
+            myShrek.play();
+            break;
+    }
 }
 
 //--------------------------------------------------------------

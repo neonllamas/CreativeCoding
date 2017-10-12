@@ -34,6 +34,7 @@ class ofApp : public ofBaseApp{
     ofSoundPlayer myLMFAO;
     ofSoundPlayer myShrek;
     ofImage shrek;
+    ofEasyCam cam; 
     
     gameState currentState;
 };
