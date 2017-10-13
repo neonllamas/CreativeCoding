@@ -8,8 +8,8 @@
 
 #include "CocoBall.h"
 
-void CocoBall::setup(){
-    pos = ofPoint( ofRandom(1024), ofRandom(768));  //ofRandom(#value) will automatially pick a number 0-#value
+void CocoBall::setup (int mouseX, int mouseY){
+    pos = ofPoint( mouseX,mouseY);//ofRandom(1024), ofRandom(768));  //ofRandom(#value) will automatially pick a number 0-#value
     vel = ofVec2f (ofRandom(-5,5), ofRandom(-5,5));
 }
 

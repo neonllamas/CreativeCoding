@@ -9,7 +9,7 @@ void ofApp::setup(){
     //}
     
     cocoPuffs.push_back(CocoBall());
-    cocoPuffs[0].setup();
+    cocoPuffs[0].setup(mouseX, mouseY);
     
     //consoleLog Options
     
@@ -47,10 +47,10 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
 
     cocoPuffs.push_back(CocoBall());
-    cocoPuffs[cocoPuffs.size()-1].setup();
+    cocoPuffs[cocoPuffs.size()-1].setup(mouseX,mouseY);
     
     CocoBall tempBall;
-    tempBall.setup();
+    tempBall.setup(mouseX,mouseY);
     cocoPuffs.push_back(tempBall);
 }
 

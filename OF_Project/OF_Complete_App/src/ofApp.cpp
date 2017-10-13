@@ -48,7 +48,7 @@ void ofApp::draw(){
         text.drawString("press 'c' to build stuff", ofGetWidth()/2, 100);
         
         //can i make this so i can "clone" when i press c? i want this to act like building blocks, so i want to be able to make a new one and leave the old one where it is...
-        
+        //array of pos of all squares i draw - make custom class
     }
     
     else if(currentState==SCENE_TWO){
@@ -58,11 +58,11 @@ void ofApp::draw(){
         cam.draw(0,0);
         ofSetLineWidth(2);
         tracker.draw();
-        ofPolyline noseBase = tracker.getImageFeature(ofxFaceTracker::NOSE_BASE);
-        ofSetColor(ofColor::red);
+        ofPolyline noseBase = tracker.getImageFeature(ofxFaceTracker::NOSE_BASE); //this is the outlines in the face ... qq
+        //ofSetColor(ofColor::red);
         noseBase.draw();
-        ofDrawCircle(noseBase.getCentroid2D(),8*tracker.getScale());
-        ofDrawBitmapString(ofToString((int) ofGetFrameRate()),10,20);
+        ofDrawCircle(noseBase.getCentroid2D(),8*tracker.getScale()); //replace ofDrawCircle with whateva ya feel like man
+        //ofDrawBitmapString(ofToString((int) ofGetFrameRate()),10,20);
     }
     
     else if(currentState==SCENE_THREE){

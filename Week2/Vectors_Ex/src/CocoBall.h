@@ -13,7 +13,7 @@
 class CocoBall{
     
     public:
-        void setup ();
+        void setup (int mouseX, int mouseY);
         void update();
         void draw();
     
