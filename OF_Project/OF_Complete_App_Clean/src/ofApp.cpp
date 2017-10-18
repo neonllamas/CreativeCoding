@@ -15,7 +15,8 @@ void ofApp::setup(){
     gui.add(scaleSize.setup("scale",100,0,1000));
     
     text.load("Avenir.ttc", 30);
-    spongebob.load("spongebob.jpg");
+    snot.load("snot.jpeg");
+    tear.load("tear.png");
     
     cam.setup(ofGetWidth(),ofGetHeight());
     tracker.setup();
@@ -47,7 +48,8 @@ void ofApp::draw(){
 
         
         ofSetColor(220, 220, 220);
-        text.drawString("press 'c' to build stuff", ofGetWidth()/2, 100);
+        text.drawString("press 'c' to build", ofGetWidth()/2, 100);
+        text.drawString("press 'x' to reset", ofGetWidth()/2, 140);
         
         
         
@@ -63,15 +65,20 @@ void ofApp::draw(){
     else if(currentState==SCENE_TWO){
         
         cam.draw(0,0);
-//        ofSetLineWidth(2);
-//        tracker.draw();
-//        ofPolyline noseBase = tracker.getImageFeature(ofxFaceTracker::NOSE_BASE); //this is the outlines in the face ... qq
-//        //ofSetColor(ofColor::red);
-//        noseBase.draw();
-//        //ofDrawCircle(noseBase.getCentroid2D(),8*tracker.getScale()); //replace ofDrawCircle with whateva ya feel like man
-//        ofDrawBitmapString(ofToString((int) ofGetFrameRate()),10,20);
-//        ofPoint centroid = noseBase.getCentroid2D();
-//        spongebob.draw( centroid.x, centroid.y, 8*tracker.getScale(), 8*tracker.getScale() );
+        //ofSetLineWidth(2);
+        //tracker.draw();
+        ofPolyline noseBase = tracker.getImageFeature(ofxFaceTracker::NOSE_BASE);
+        ofPolyline eye = tracker.getImageFeature(ofxFaceTracker::LEFT_EYE);
+        //ofSetColor(ofColor::red);
+        //noseBase.draw();
+        //ofDrawCircle(noseBase.getCentroid2D(),8*tracker.getScale()); //replace ofDrawCircle with whateva ya feel like man
+        //ofDrawBitmapString(ofToString((int) ofGetFrameRate()),10,20);
+        ofPoint nostril = noseBase.getCentroid2D();
+        snot.draw( nostril.x, nostril.y, 8*tracker.getScale(), 8*tracker.getScale() );
+        ofPoint leftEye = eye.getCentroid2D();
+        tear.draw( leftEye.x, leftEye.y, 8*tracker.getScale(), 8*tracker.getScale() );
+        
+        
     }
     
     

@@ -52,7 +52,8 @@ public:
     ofTrueTypeFont text;
     
     //ASSETS
-    ofImage spongebob;
+    ofImage snot;
+    ofImage tear;
     
     //CUBE SPAWNING
     Cube newCube;
