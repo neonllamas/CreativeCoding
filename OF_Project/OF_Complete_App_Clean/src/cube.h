@@ -5,10 +5,11 @@
 class Cube{
     
 public:
-    void setup (int mouseX, int mouseY);
-    void update();
+    Cube();
+    void setup (int x, int y);
+    void update(int r, int g, int b, int a, int w, int h, int s);
     void draw();
     
-    ofPoint pos;
+    int r,g,b,a,w,h,s;
 };
 

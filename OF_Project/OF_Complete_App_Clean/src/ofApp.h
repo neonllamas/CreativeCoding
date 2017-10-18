@@ -6,9 +6,9 @@
 #include "ofxFaceTracker.h"
 #include "ofxCv.h"
 #include "cube.h"
-#include "cube.cpp"
 
-#define NUMCUBES 2000
+
+//#define NUMCUBES 2000
 
 enum gameState{
     SCENE_ONE,
@@ -56,9 +56,8 @@ public:
     
     //CUBE SPAWNING
     Cube newCube;
-    Cube lotsOfCubes[NUMCUBES];
-    int someInts[1000];
     vector<Cube> cubeSpawn;
+  
     
 };
 

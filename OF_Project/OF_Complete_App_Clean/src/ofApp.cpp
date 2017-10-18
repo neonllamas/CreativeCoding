@@ -5,8 +5,6 @@ using namespace ofxCv;
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    //can gui options be hidden in different scenes?
-    
     gui.setup();
     gui.add(scaleRed.setup("red",85,0,255));
     gui.add(scaleGreen.setup("green",80,0,255));
@@ -22,12 +20,8 @@ void ofApp::setup(){
     cam.setup(ofGetWidth(),ofGetHeight());
     tracker.setup();
     
-    newCube.setup();
-    for(int i=0; i<NUMCUBES; i++){
-        lotsOfCubes[i].setup();
-    }
-    cubeSpawn.push_back(newCube());
-    cubeSpawn[0].setup(mouseX, mouseY);
+    newCube.setup(scaleWidth, scaleHeight);
+    
 }
 
 //--------------------------------------------------------------
@@ -37,10 +31,7 @@ void ofApp::update(){
         tracker.update(toCv(cam));
     }
     
-    newCube.update();
-    for(int i=0; i<cubeSpawn.size(); i++){
-        cubeSpawn[i].update();
-    }
+    newCube.update(scaleRed, scaleGreen, scaleBlue, scaleAlpha,scaleWidth, scaleHeight,scaleSize);
 }
 
 //--------------------------------------------------------------
@@ -52,11 +43,8 @@ void ofApp::draw(){
         gui.draw();
         ofSetBackgroundColor(30,30,30);
         
-        
-        ofSetColor(scaleRed, scaleGreen, scaleBlue, scaleAlpha);
-        ofDrawBox(scaleWidth, scaleHeight, 0, scaleSize, scaleSize, 15);
-        ofFill();
-        ofNoFill();
+        newCube.draw();
+
         
         ofSetColor(220, 220, 220);
         text.drawString("press 'c' to build stuff", ofGetWidth()/2, 100);
@@ -67,10 +55,6 @@ void ofApp::draw(){
             cubeSpawn[i].draw();
         }
     
-        // newCube.draw();
-        // for(int i=0; i<NUMCUBES; i++){
-        // lotsOfCubes[i].draw();
-        //   }
     }
     
     
@@ -78,17 +62,16 @@ void ofApp::draw(){
     //SCENE TWO
     else if(currentState==SCENE_TWO){
         
-        //face tracker - basically snapchat filters
-        
         cam.draw(0,0);
-        ofSetLineWidth(2);
-        tracker.draw();
-        ofPolyline noseBase = tracker.getImageFeature(ofxFaceTracker::NOSE_BASE); //this is the outlines in the face ... qq
-        //ofSetColor(ofColor::red);
-        noseBase.draw();
-        //ofDrawCircle(noseBase.getCentroid2D(),8*tracker.getScale()); //replace ofDrawCircle with whateva ya feel like man
-        spongebob.draw(noseBase.getCentroid2D() ,8*tracker.getScale()); //what the efffffffffff
-        //ofDrawBitmapString(ofToString((int) ofGetFrameRate()),10,20);
+//        ofSetLineWidth(2);
+//        tracker.draw();
+//        ofPolyline noseBase = tracker.getImageFeature(ofxFaceTracker::NOSE_BASE); //this is the outlines in the face ... qq
+//        //ofSetColor(ofColor::red);
+//        noseBase.draw();
+//        //ofDrawCircle(noseBase.getCentroid2D(),8*tracker.getScale()); //replace ofDrawCircle with whateva ya feel like man
+//        ofDrawBitmapString(ofToString((int) ofGetFrameRate()),10,20);
+//        ofPoint centroid = noseBase.getCentroid2D();
+//        spongebob.draw( centroid.x, centroid.y, 8*tracker.getScale(), 8*tracker.getScale() );
     }
     
     
@@ -117,16 +100,15 @@ void ofApp::keyPressed(int key){
             break;
             
         case 'c':
-            cubeSpawn.push_back(Cube());
-            cubeSpawn[cubeSpawn.size()-1].setup(mouseX,mouseY);
-            
-            Cube tempCube;
-            tempCube.setup(mouseX,mouseY);
-            cubeSpawn.push_back(tempCube);
+            cubeSpawn.push_back(newCube);
             break;
             
         case 'r':
             tracker.reset();
+            break;
+            
+        case 'x':
+            cubeSpawn.clear();
             break;
     }
     
