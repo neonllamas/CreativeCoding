@@ -17,6 +17,9 @@ void ofApp::setup(){
     text.load("Avenir.ttc", 30);
     snot.load("snot.jpeg");
     tear.load("tear.png");
+    memes.load("memes.jpeg");
+    shader.load("shader.vert","shader.frag");
+    myVideo.load("skull.mp4");
     
     cam.setup(ofGetWidth(),ofGetHeight());
     tracker.setup();
@@ -27,12 +30,16 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    newCube.update(scaleRed, scaleGreen, scaleBlue, scaleAlpha,scaleWidth, scaleHeight,scaleSize);
+    
     cam.update();
+    myVideo.update();
+    
+    
     if(cam.isFrameNew()){
         tracker.update(toCv(cam));
     }
-    
-    newCube.update(scaleRed, scaleGreen, scaleBlue, scaleAlpha,scaleWidth, scaleHeight,scaleSize);
 }
 
 //--------------------------------------------------------------
@@ -41,17 +48,17 @@ void ofApp::draw(){
     
     //SCENE ONE
     if(currentState==SCENE_ONE){
+        
+        myVideo.stop();
+        
         gui.draw();
         ofSetBackgroundColor(30,30,30);
         
         newCube.draw();
-
         
         ofSetColor(220, 220, 220);
         text.drawString("press 'c' to build", ofGetWidth()/2, 100);
         text.drawString("press 'x' to reset", ofGetWidth()/2, 140);
-        
-        
         
         for(int i=0;i<cubeSpawn.size(); i++){
             cubeSpawn[i].draw();
@@ -64,15 +71,11 @@ void ofApp::draw(){
     //SCENE TWO
     else if(currentState==SCENE_TWO){
         
+        myVideo.stop();
+        
         cam.draw(0,0);
-        //ofSetLineWidth(2);
-        //tracker.draw();
         ofPolyline noseBase = tracker.getImageFeature(ofxFaceTracker::NOSE_BASE);
         ofPolyline eye = tracker.getImageFeature(ofxFaceTracker::LEFT_EYE);
-        //ofSetColor(ofColor::red);
-        //noseBase.draw();
-        //ofDrawCircle(noseBase.getCentroid2D(),8*tracker.getScale()); //replace ofDrawCircle with whateva ya feel like man
-        //ofDrawBitmapString(ofToString((int) ofGetFrameRate()),10,20);
         ofPoint nostril = noseBase.getCentroid2D();
         snot.draw( nostril.x, nostril.y, 8*tracker.getScale(), 8*tracker.getScale() );
         ofPoint leftEye = eye.getCentroid2D();
@@ -85,6 +88,20 @@ void ofApp::draw(){
     //SCENE THREE
     else if(currentState==SCENE_THREE){
         
+        myVideo.draw(0, 0, ofGetWidth(), ofGetHeight());
+        myVideo.play();
+        
+        text.drawString("bella made something! lets party!!", 100, 700);
+        
+        color = ofColor(ofRandom(0, 255),
+                        ofRandom(0, 255),
+                        ofRandom(0, 255)
+                        );
+        
+        ofSetColor(color);
+        
+       
+        
     }
     
 }
@@ -93,15 +110,19 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
     
     switch(key){
+            
         case 'f':
             ofToggleFullscreen();
             break;
+            
         case '1':
             currentState=SCENE_ONE;
             break;
+            
         case '2':
             currentState = SCENE_TWO;
             break;
+            
         case '3':
             currentState=SCENE_THREE;
             break;

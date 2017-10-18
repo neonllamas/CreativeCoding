@@ -50,10 +50,14 @@ public:
     ofxFaceTracker tracker;
     gameState currentState;
     ofTrueTypeFont text;
+    ofVideoPlayer myVideo;
     
     //ASSETS
     ofImage snot;
     ofImage tear;
+    ofImage memes;
+    ofShader shader;
+    ofColor color;
     
     //CUBE SPAWNING
     Cube newCube;
